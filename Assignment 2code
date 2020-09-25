@@ -8,7 +8,7 @@ int main()
     
     top=-1;
     int a;
-    printf("\n Enter the size of STACK[MAX=100]:");
+    printf("\n Enter the STACK size[MAX=100]:");
     scanf("%d",&n);
     printf("\n\t STACK OPERATIONS USING ARRAY");
     printf("\n\t--------------------------------");
@@ -23,17 +23,17 @@ int main()
             {
                 printf(" Enter a value to be pushed:");
                 scanf("%d",&a);
-                push(a,stack[]);
+                push(a,stack);
                 break;
             }
             case 2:
             {
-                pop(stack[]);
+                pop(stack);
                 break;
             }
             case 3:
             {
-                display(stack[]);
+                display(stack);
                 break;
             }
             case 4:
@@ -75,6 +75,7 @@ void pop(int stack[])
     else
     {
         p=stack[top];
+        printf("popped element is: %d\n",p);
         top--;
     }
 }
@@ -86,6 +87,4 @@ void display(int stack[])
             printf("\n%d",stack[i]);
         
     
-    
-   
 }
