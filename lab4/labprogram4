@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 3
+
+int front=0;
+int rear=-1;
+int queue[MAX];
+
+void Enque(int*,int*);
+int Deque(int*,int*);
+void display(int*,int*);
+int main()
+{
+	int option;
+    int item;
+    do{
+        printf("\n 1. Insert  (EnQueue)");
+        printf("\n 2. delete  (DeQueue)");
+        printf("\n 3. Display content ");
+        printf("\n 4. Exit\n");
+        printf("Enter the option :");
+        scanf("%d",&option);
+        switch(option)
+        {
+            case 1:  printf("Enter element\n");
+                     scanf("%d",&item);
+                     Enque(&item,&rear);
+                     break;
+            case 2: item=Deque(&front,&rear);
+                    if(item==-1)
+                        printf("Queue empty\n");
+                    else
+                    printf("Removed element from queue %d",item);
+                    break;
+            case 3: display(&front,&rear);
+                    break;
+            case 4: exit(0);
+        }
+    } while (option!=4);
+	return 0;
+}
+
+void Enque(int *ele,int* rear)
+{
+    if (*rear==MAX-1)
+       printf("Queue is full\n");
+    else
+    {
+      (*rear)++;
+      queue[*rear]=*ele;
+                    
+    }
+}
+int Deque(int *front,int *rear)
+{
+    int item;
+    if(*front == -1)
+        return -1;
+    else 
+    {
+        item=queue[*front];
+        (*front)++;
+        if(*front>*rear)
+        {
+            *front=-1;
+            *rear=-1;
+        }
+        return item;
+    }
+    
+}
+
+void display(int *front,int *rear)
+{
+    int i=0;
+    if(*front==-1)
+        printf("Queue is empty\n");
+    else
+    {
+        printf("\n Queue contents:");
+        for(i=*front;i<=*rear;i++)
+            printf("%d\t", queue[i]);
+    }
+}
