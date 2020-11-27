@@ -1,0 +1,194 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+void create();
+void del(char*);
+void display();
+void del_beg();
+void del_end();
+void inserthead();
+struct node
+{
+    char name[20];
+    char id[10];
+    int sem;
+    struct node* next;
+};
+struct node* head=NULL;
+void main()
+{
+    int c;
+    char ele[10];
+    do
+    {
+        printf("enter choice : 1.create 2.display 3.delete 4.insert before 5.delete beginning 6.delete end 7.exit\n");
+        scanf("%d",&c);
+        switch(c)
+    {
+        case 1: create(); 
+                break;
+        case 2: display();
+                break;
+        case 3: printf("Enter the element id to be deleted\n");
+                scanf("%s",ele);
+                del(ele);   
+                break;
+        case 4: inserthead();
+                break;
+        case 5: del_beg();
+                break;
+        case 6: del_end();
+                break;
+        case 7:exit(0);
+                break;
+    }
+    }while(1);
+    
+}
+void create()
+{
+   struct node *newnode,*temp;
+    char n[20],id1[10];
+    int s;
+    newnode =(struct node *) malloc (sizeof(struct node));
+    printf("Enter the data :name id and sem\n ");
+    scanf("%s",n);
+    scanf("%s",id1);
+    scanf("%d",&s);
+    strcpy(newnode->name,n);
+    strcpy(newnode->id,id1);
+    newnode->sem=s;
+    if (head==NULL)
+     { 
+       newnode->next=NULL;
+      head=newnode; 
+      printf("Node is created\n");
+     }
+     else 
+    {
+    temp=head;
+       while(temp->next!=NULL)
+       {
+                temp=temp->next;
+        }
+      temp->next=newnode;
+      newnode->next=NULL;
+       printf("Node created\n");
+   }  
+}
+void display()
+{
+    struct node *ptr=NULL;
+    ptr=head;
+     
+    if(ptr==NULL)
+    {
+        printf("No element to print\n");
+    }
+    else
+    {
+        while(ptr!=NULL)
+       {
+        puts(ptr->name);
+        puts(ptr->id);
+        printf("%d \n ",ptr->sem);
+        printf(".....\n");
+        ptr=ptr->next;
+       }
+    }
+    
+}
+void del(char id1[10])
+{
+    struct node *temp,*del=NULL;
+     
+     if (head == NULL)
+     {
+         printf("Empty List. \n");return;
+     }
+     temp=head;
+     if(strcmp(head->id,id1)==0)
+     {
+         head=head->next;
+         return;
+     }
+    while (temp->next!=NULL)
+    {
+        if(strcmp(temp->next->id,id1)==0)
+        {
+            del=temp->next;
+           if(del->next==NULL)
+           temp->next=NULL;
+           else
+            temp->next=del->next;
+        }
+            
+        else
+           temp=temp->next; 
+    }
+    if(del==NULL)
+    {
+        printf("Element not found \n");return;
+  }
+    
+    
+}
+
+ void inserthead()
+ {
+        struct node *newnode;
+    char n[20],id1[10];
+    int s;
+    printf("Enter the elements : name id and sem at the head\n ");
+    scanf("%s",n);
+    scanf("%s",id1);
+    scanf("%d",&s);
+    newnode=(struct node*)malloc(sizeof(struct node));
+    
+    strcpy(newnode->name,n);
+    strcpy(newnode->id,id1);
+    scanf("%d",&s);
+    newnode->next=head;
+    head=newnode;
+    
+
+ }
+ void del_beg()
+ {
+     struct node* ptr;
+     if(head==NULL)
+     printf("empty list!\n");
+     else
+     {
+         ptr=head;
+         head=ptr->next;
+         free(ptr);
+         printf("beginning node deleted\n");
+     }
+ }
+ void del_end()
+ {
+     struct node *temp,*ptr;
+      if(head == NULL)  
+        {  
+            printf("\nlist is empty\n");  
+        }  
+        else if(head -> next == NULL)  
+        {  
+            head = NULL;  
+            free(head);  
+            printf(" single node deleted\n");  
+        }  
+         else
+         {  
+            ptr = head;   
+            while(ptr->next != NULL)  
+                {  
+                    temp = ptr;  
+                    ptr = ptr ->next;  
+                }  
+                temp->next = NULL;  
+                free(ptr);  
+                printf("\n Deleted Node from the last ...\n");  
+            }         
+ }
